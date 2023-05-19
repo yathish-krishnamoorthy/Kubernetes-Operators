@@ -1,0 +1,13 @@
+---
+- name: ConfigMap Example is "{{ state }}"
+  kubernetes.core.k8s:
+    definition: 
+      kind: ConfigMap
+      apiVersion: v1
+      metadata: 
+        name: my-configmap
+        namespace: default
+      data:
+        key: "Hey Yathish, YOU HAVE RUN THE BUNDLE UPGRADE!" 
+    state: "{{ state }}"
+  ignore_errors: true

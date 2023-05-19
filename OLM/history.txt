@@ -1,0 +1,703 @@
+    1  ip addr 
+    2  cat /etc/hosts
+    3  ping worker1
+    4  ping worker2
+    5  git clone https://github.com/amitvashisttech/k8s-advance-vmaware-27-March-2023.git
+    6  ls
+    7  cd k8s-advance-vmaware-27-March-2023/
+    8  ls
+    9  cd 00-Setup/
+   10  ls
+   11  cat install-k8s-master-node.sh 
+   12  ls
+   13  ./install-k8s-worker-node.sh 
+   14  cat install-k8s-master-node.sh 
+   15  kubeadm --help
+   16  kubeadm config --help
+   17  kubeadm config images --help
+   18  kubeadm config images list 
+   19  kubeadm config images pull
+   20  crictl images 
+   21  pwd
+   22  ls
+   23  git clone https://github.com/amitvashisttech/kubenetes-operators-radisys-15-May-2023.git
+   24  cd kubenetes-operators-radisys-15-May-2023/00-Setup
+   25  ls
+   26  sh install-k8s-master-node.sh 
+   27  mkdir -p $HOME/.kube
+   28  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   29  export KUBECONFIG=/etc/kubernetes/admin.conf
+   30  kubectl get nodes
+   31  kubectl get nodes -o wide
+   32  kubectl run hello-k8s --image=nginx --port=80
+   33  kubectl get pods
+   34  kubectl describe pods hello-k8s
+   35  kubectl expose pod hello-k8s --type=NodePort
+   36  kubectl get svc
+   37  docker login
+   38  ls
+   39  kubectl get svc
+   40  kubectl get pods
+   41  kubectl get nodes
+   42  kubectl create secret generic regcred --from-file=.dockerconfigjson=/root/.docker/config.json --type=kubernetes.io/dockerconfigjson
+   43  kubectl get nodes
+   44  kubectl get svc
+   45  kubectl get nodes
+   46  cd ..
+   47  ls
+   48  export ARCH=$(case $(uname -m) in x86_64) echo -n amd64 ;; aarch64) echo -n arm64 ;; *) echo -n $(uname -m) ;; esac)
+   49  export OS=$(uname | awk '{print tolower($0)}')
+   50* 
+   51  curl -LO ${OPERATOR_SDK_DL_URL}/operator-sdk_${OS}_${ARCH}
+   52  gpg --keyserver keyserver.ubuntu.com --recv-keys 052996E2A20B5C7E
+   53  curl -LO ${OPERATOR_SDK_DL_URL}/checksums.txt
+   54  curl -LO ${OPERATOR_SDK_DL_URL}/checksums.txt.asc
+   55  gpg -u "Operator SDK (release) <cncf-operator-sdk@cncf.io>" --verify checksums.txt.asc
+   56  grep operator-sdk_${OS}_${ARCH} checksums.txt | sha256sum -c -
+   57  chmod +x operator-sdk_${OS}_${ARCH} && sudo mv operator-sdk_${OS}_${ARCH} /usr/local/bin/operator-sdk
+   58  operator-sdk --help
+   59  ls
+   60  cd ..
+   61  ls
+   62  cd kubenetes-operators-radisys-15-May-2023/
+   63  ls
+   64  cd cd 00-Setup/
+   65  ls
+   66  cd ..
+   67  ls
+   68  cd kubenetes-operators-radisys-15-May-2023/
+   69  ls
+   70  git pull
+   71  ls
+   72  cd 03-Web-Operator/
+   73  ls
+   74  kubectl get nodes -o wide
+   75  kubectl get svc
+   76* 
+   77  curl http://10.103.110.87:30884
+   78  curl -v http://10.103.110.87:30884
+   79  cd ..
+   80  ls
+   81  cd kubenetes-operators-radisys-15-May-2023/
+   82  ls
+   83  git pull
+   84  ls
+   85  cd 03-Operator/
+   86  ls
+   87  cat README.md 
+   88  ls
+   89  cd memcached-operator/
+   90  operator-sdk init --plugins=ansible --domain example.com
+   91  cd ..
+   92  ls
+   93  rm -rf *
+   94  ls
+   95  mkdir memcached-operator
+   96  cd memcached-operator/
+   97  operator-sdk init --plugins=ansible --domain example.com
+   98  operator-sdk create api --group cache --version v1alpha1 --kind Memcached --generate-role
+   99  cat roles/memcached/tasks/main.yml
+  100  vim roles/memcached/tasks/main.yml
+  101  nano roles/memcached/tasks/main.yml
+  102  cat roles/memcached/tasks/main.yml
+  103  nano roles/memcached/defaults/main.yml
+  104  cat roles/memcached/defaults/main.yml
+  105  nano config/samples/cache_v1alpha1_memcached.yaml
+  106  N
+  107  nano config/samples/cache_v1alpha1_memcached.yaml
+  108  cat config/samples/cache_v1alpha1_memcached.yaml
+  109  make docker-build docker-push IMG=ttl.sh/example-memcached:2h
+  110  apt install make
+  111  nano config/samples/cache_v1alpha1_memcached.yaml
+  112  nano roles/memcached/defaults/main.yml
+  113  make docker-build docker-push IMG=ttl.sh/example-memcached:2h
+  114  cd ..
+  115  ls
+  116  cd ..
+  117  ls
+  118  cd 00-Setup/
+  119  ls
+  120  sh install-docker.sh 
+  121  cd ..
+  122  ls
+  123  cd 03-Operator/
+  124  ls
+  125  cd memcached-operator/
+  126  ls
+  127  make docker-build docker-push IMG=ttl.sh/example-memcached:2h
+  128  make install IMG=ttl.sh/example-memcached:2h
+  129  make deploy IMG=ttl.sh/example-memcached:2h
+  130  kubectl get pods -n memcached-operator-system
+  131  kubectl  get pods
+  132  kubectl  get pods -A
+  133  kubectl get deployment -n memcached-operator-system
+  134  kubectl get pods  -n memcached-operator-system
+  135  kubectl get pods -n memcached-operator-system
+  136  kubectl logs -f memcached-operator-controller-manager-5f687d9dc-rj7dk -n memcached-operator-system
+  137  kubectl get pods -n memcached-operator-system
+  138  kubectl get memcached/memcached-sample -o yaml
+  139  ls
+  140  cd ..
+  141  ls
+  142  cd memcached-operator/
+  143  ls
+  144  kubectl get memcached/memcached-sample -o yaml
+  145  kubectl get pods -n memcached-operator-system
+  146  kubectl get pods
+  147  kubectl patch memcached memcached-sample -p '{"spec":{"size": 5}}' --type=merge
+  148  kubectl get pods
+  149  kubectl get pods -n memcached-operator-system
+  150  kubectl get memcached/memcached-sample -o yaml
+  151  kubectl get pods
+  152  kubectl get pods -A
+  153  kubectl get pods -n memcached-operator-system
+  154  kubectl get memcached/memcached-sample -o yaml
+  155  kubectl get deployment
+  156  memcached-operator-controller-manager-5f687d9dc-rj7dk
+  157  kubectl get pods -n memcached-operator-system
+  158  kubectl get deployment -n memcached-operator-system
+  159  cat config/samples/cache_v1alpha1_memcached.yaml
+  160  make docker-build docker-push IMG=ttl.sh/example-memcached:2h
+  161  make deploy IMG=ttl.sh/example-memcached:2h
+  162  kubectl get pods -n memcached-operator-system
+  163  kubectl get deployment -n memcached-operator-system
+  164  kubectl get pods  -n memcached-operator-system
+  165  kubectl logs -f memcached-operator-controller-manager-5f687d9dc-rj7dk -n memcached-operator-system
+  166  kubectl get pods -n memcached-operator-system
+  167  kubectl get memcached/memcached-sample -o yaml
+  168  ls
+  169  cd config/
+  170  ls
+  171  cd samples/
+  172  ls
+  173  kubectl get memcached/memcached-sample -o yaml
+  174  kubectl get deployment
+  175  cd \../../
+  176  ls
+  177  kubectl get memcached/memcached-sample -o yaml
+  178  kubectl get pods -n memcached-operator-system
+  179  nano config/samples/cache_v1alpha1_memcached.yaml
+  180  ls
+  181  cd kubenetes-operators-radisys-15-May-2023/
+  182  kubectl get deployment
+  183  kubectl edit deployment
+  184  kubectl get pods -n memcached-operator-system
+  185  kubectl logs -f memcached-operator-controller-manager-5f687d9dc-rj7dk -n memcached-operator-system
+  186  exit
+  187  kubectl get pods -n memcached-operator-system
+  188  ls
+  189  cd kubenetes-operators-radisys-15-May-2023/
+  190  git pull
+  191  cd ..
+  192  ls
+  193  git pull
+  194  cd kubenetes-operators-radisys-15-May-2023/
+  195  ls
+  196  git pull
+  197  kubectl get deployment
+  198  ls
+  199  cd 05-Webaap-Operator/
+  200  ls
+  201  kubectl get pods -A
+  202  kubectl get pods
+  203  cd
+  204  ls
+  205  cd webappoperator/
+  206  ls
+  207  operator-sdk init --plugins=ansible --domain example.com
+  208  operator-sdk create api --group cache --version v1alpha1 --kind Webapp --generate-role
+  209  vim  roles/webapp/tasks/main.yml
+  210  make docker-build docker-push IMG=ttl.sh/yathishk-webapp3:2h
+  211  make install IMG=ttl.sh/yathishk-webapp3:2h
+  212  make deploy IMG=ttl.sh/yathishk-webapp3:2h
+  213  kubectl get pod -A
+  214  kubectl logs -f webappoperator-controller-manager-8696fdbf6-q4fm9 -n webapp-operator-system
+  215  kubectl logs -f webappoperator-controller-manager-8696fdbf6-q4fm9 -n webappoperator-system
+  216  kubectl get pods,svc
+  217  kubectl logs -f webappoperator-controller-manager-8696fdbf6-q4fm9 -n webappoperator-system
+  218  cd config/rbac/
+  219  ls
+  220  vim role.yaml 
+  221  kubectl get pods,svc
+  222  vim  roles/webapp/tasks/main.yml
+  223  cd ../..
+  224  ls
+  225  vim  roles/webapp/tasks/main.yml
+  226  cd config/rbac/
+  227  ls
+  228  vim role.yaml 
+  229  kubectl logs -f webappoperator-controller-manager-8696fdbf6-q4fm9 -n webappoperator-system
+  230  cd 
+  231  cd webappoperator/
+  232  ls
+  233  #make deploy IMG=ttl.sh/yathishk-webapp3:2h
+  234  make undeploy
+  235  make deploy IMG=ttl.sh/yathishk-webapp4:2h
+  236  kubectl logs -f webappoperator-controller-manager-8696fdbf6-q4fm9 -n webappoperator-system
+  237  kubectl get pods
+  238  kubectl get pods -A
+  239  kubectl  apply -f config/samples/cache_v1alpha1_webapp.yaml
+  240  kubectl get pods -A
+  241  make undeploy
+  242  make docker-build docker-push IMG=ttl.sh/yathishk-webapp5:2h
+  243  kubectl get pods -A
+  244  #make docker-build docker-push IMG=ttl.sh/yathishk-webapp5:2h
+  245  make deploy IMG=ttl.sh/yathishk-webapp5:2h
+  246  kubectl get pods -A
+  247  kubectl  apply -f config/samples/cache_v1alpha1_webapp.yaml 
+  248  kubectl get pods,svc
+  249  make undeploy
+  250  vim roles/webapp/tasks/main.yml
+  251  kubectl get pods,svc
+  252  #make docker-build docker-push IMG=ttl.sh/yathishk-webapp6:2h
+  253  make docker-build docker-push IMG=ttl.sh/yathishk-webapp6:2h
+  254  make deploy IMG=ttl.sh/yathishk-webapp6:2h
+  255  kubectl get pod -A
+  256  kubectl logs -f webappoperator-controller-manager-8499645559-cr2p9 -n webappoperator-system
+  257  cd ../helm-operator/
+  258  ls
+  259  operator-sdk init --plugins=helm --domain example.com
+  260  operator-sdk create api --group cache --version v1alpha1 --kind Webapp
+  261  cat watches.yaml
+  262  make docker-build docker-push IMG=ttl.sh/yathishk-helm1:2h
+  263  make deploy IMG=ttl.sh/yathishk-helm1:2h
+  264  kubectl get pod -A
+  265  kubectl  apply -f config/samples/cache_v1alpha1_webapp.yaml
+  266  kubectl get pods,svc
+  267  cd ..
+  268  cd Ansible-Local-Env/
+  269  ls
+  270  apt install python3-pip
+  271  pip install ansible
+  272  pip install ansible-runner
+  273  apt-get update ; apt-get install pip -y
+  274  ansible-galaxy collection install kubernetes.core
+  275  pip3 install openshift
+  276  mkdir configmap-operator
+  277  cd configmap-operator
+  278  ls
+  279  operator-sdk init --plugins=ansible --domain example.com
+  280  operator-sdk create api --group cache --version v1alpha1 --kind Configmap --generate-role
+  281  ls
+  282  cat requirements.yml 
+  283  ansible-galaxy collection install -r requirements.yml --force
+  284  cat roles/configmap/tasks/main.yml
+  285  ls
+  286  ansible-playbook configmap-playbook.yml
+  287  kubectl get configmap
+  288  ansible-playbook configmap-playbook.yml  --extra-vars state=absent
+  289  kubectl get configmap
+  290  make docker-build docker-push IMG=ttl.sh/yathishk-configmap1:2h
+  291  make deploy IMG=ttl.sh/yathishk-configmap1:2h
+  292  kubectl get configmap
+  293  kubectl get pod -A
+  294  make undeploy
+  295  kubectl get configmap
+  296  make docker-build docker-push IMG=ttl.sh/yathishk-configmap2:2h
+  297  make deploy IMG=ttl.sh/yathishk-configmap2:2h
+  298  kubectl get configmap
+  299  kubectl get pod
+  300  kubectl get pod -A
+  301  make undeploy
+  302  make docker-build docker-push IMG=ttl.sh/yathishk-configmap3:2h
+  303  make deploy IMG=ttl.sh/yathishk-configmap3:2h
+  304  kubectl get pod -A
+  305  kubectl  apply -f config/samples/cache_v1alpha1_webapp.yaml
+  306  kubectl  apply -f config/samples/cache_v1alpha1_configmap.yaml 
+  307  kubectl get pod -A
+  308  kubectl get configmap
+  309  history 
+  310  cd ..
+  311  ls
+  312  cd kubenetes-operators-radisys-15-May-2023/
+  313  ls
+  314  cd ..
+  315  ls
+  316  mkdir 07-Ansible-Local-Env
+  317  cd 07-Ansible-Local-Env/
+  318  ls
+  319  cd ..
+  320  ls
+  321  rm 07-Ansible-Local-Env/
+  322  rm -rf 07-Ansible-Local-Env/
+  323  mkdir Ansible-Development-Op
+  324  cd Ansible-Development-Op/
+  325  ls
+  326  ansible-galaxy collection install kubernetes.core
+  327  mkdir ansibledev-operator
+  328  cd ansibledev-operator/
+  329  ls
+  330  operator-sdk init --plugins=ansible --domain example.com
+  331  operator-sdk create api --group cache --version v1alpha1 --kind ansibledev --generate-role
+  332  operator-sdk create api --group cache --version v1alpha1 --kind Ansibledev --generate-role
+  333  ls
+  334  cat watches.yaml 
+  335  cat requirements.yml 
+  336  ansible-galaxy collection install -r requirements.yml --force
+  337  ansible-playbook playbook.yml 
+  338  kubectl get ansibledev
+  339  kubectl get ns
+  340  kubectl get devlopment
+  341  kubectl get srv,pod
+  342  kubectl get svc,pod
+  343  kubectl get all -n devlopment
+  344  curl -v http://10.108.104.188:30350
+  345  kubectl get all -n devlopment
+  346  ansible-playbook playbook.yml 
+  347  kubectl get all -n devlopment
+  348  make docker-build docker-push IMG=ttl.sh/yathishk-ansibledev1:2h
+  349  make deploy IMG=ttl.sh/yathishk-ansibledev1:2h
+  350  kubectl apply -f config/samples/cache_v1alpha1_ansibledev.yaml 
+  351  kubectl get all -n devlopment
+  352  kubectl get ansibledev
+  353  kubectl get pod -A
+  354  make undeploy
+  355  make docker-build docker-push IMG=ttl.sh/yathishk-ansibledev2:2h
+  356  make deploy IMG=ttl.sh/yathishk-ansibledev2:2h
+  357  kubectl apply -f config/samples/cache_v1alpha1_ansibledev.yaml 
+  358  kubectl get pod -A
+  359  cd ..
+  360  ls
+  361  cd ..
+  362  ls
+  363  mkdir mkdir Ansible-Devlopement-playbook
+  364  ls
+  365  rm -rf mkdir
+  366  ls
+  367  mv Ansible-Devlopement-playbook/ ansible-development-playbook
+  368  cd ansible-development-playbook/
+  369  ls
+  370  ansible-galaxy init configmap
+  371  ls
+  372  cd configmap/
+  373  ls
+  374  cd tasks/
+  375  ls
+  376  cd ..
+  377  ls
+  378  cd configmap/
+  379  ls
+  380  cd ..
+  381  ls
+  382  cd ..
+  383  ls
+  384  cd Ansible-Local-Env/
+  385  ls
+  386  cd ..
+  387  cd ansible-development-playbook/
+  388  ls
+  389  cd configmap/
+  390  ls
+  391  operator-sdk init --plugins=ansible --domain example.com
+  392  operator-sdk create api --group cache --version v1alpha1 --kind ansibledev --generate-role
+  393  operator-sdk create api --group cache --version v1alpha1 --kind Ansibledev --generate-role
+  394  ls
+  395  operator-sdk delete api --group cache --version v1alpha1 --kind ansibledev --generate-role
+  396  operator-sdk remove api --group cache --version v1alpha1 --kind ansibledev --generate-role
+  397  operator-sdk --help
+  398  ls
+  399  cd ..
+  400  ls
+  401  rm -rf configmap/
+  402  ls
+  403  cd ..
+  404  ls
+  405  kubectl get Pod -A
+  406  cd helm-operator/
+  407  make undeploy
+  408  ls
+  409  cd ..
+  410  kubernetes get ns
+  411  kubernetes get n
+  412  kubernetes get ns
+  413  kubectl get ns
+  414  cd Ansible-Development-Op/
+  415  ls
+  416  cd ansibledev-operator/
+  417  ls
+  418  make undeploy
+  419  kubectl get pod -A
+  420  kubectl delete ns devlopment
+  421  kubectl get pod -A
+  422  ls
+  423  cd ..
+  424  ls
+  425  cd ..
+  426  cd ansible-development-playbook/
+  427  ls
+  428  cd configmap/
+  429  ls
+  430  cd ..
+  431  ls
+  432  ansible-galaxy collection install kubernetes.core
+  433  operator-sdk init --plugins=ansible --domain example.com
+  434  ls
+  435  ansible-galaxy collection install -r requirements.yml --force
+  436  ls
+  437  cd configmap/
+  438  ls
+  439  cd ..
+  440  cd playbooks/
+  441  ls
+  442  cd ..
+  443  cd configmap/
+  444  cd ..
+  445  cd configmap/
+  446  ls
+  447  cd playbooks/
+  448  ls
+  449  ansible-playbook web.yml 
+  450  ansible-playbook web.yml
+  451  ansible-playbook web.yml 
+  452  cd ..
+  453  mv playbooks/web.yml .
+  454  ls
+  455  ansible-playbook web.yml 
+  456  cd ..
+  457  ls
+  458  cd configmap/
+  459  ls
+  460  ansible-playbook web.yml 
+  461  cd 
+  462  ls
+  463  cd ansible-development-playbook/
+  464  ls
+  465  cd ..
+  466  ls
+  467  rm -rf ansible-development-playbook/*
+  468  ls
+  469  cd ansible-development-playbook/
+  470  ls
+  471  kubectl get pod -A
+  472  cd ..
+  473  ls
+  474  cd Ansible-Development-Op/
+  475  ls
+  476  cd ansibledev-operator/
+  477  ls
+  478  make undeploy
+  479  kubectl get ns
+  480  cd ..
+  481  ls
+  482  cd ..
+  483  ls
+  484  cd kubenetes-operators-radisys-15-May-2023/
+  485  ls
+  486  cd 05-Webaap-Operator/
+  487  ls
+  488  make undeploy
+  489  cd ..
+  490  cd 
+  491  cd ansible-development-playbook/
+  492  ls
+  493  mkdir ansibledev
+  494  cd ansibledev/
+  495  ls
+  496  cd ..
+  497  operator-sdk init --plugins=ansible --domain example.com
+  498  ls
+  499  rm ansibledev/
+  500  rm -rf ansibledev/
+  501  ls
+  502  ansible-galaxy init configmap
+  503  ls
+  504  cd configmap/
+  505  ls
+  506  ansible-playbook web.yml 
+  507  kubectl get config
+  508  kubectl get configmap
+  509  kubectl delete configmap example-configmap
+  510  ls
+  511  kubectl get ns
+  512  kubectl delete ns configmap-operator-system
+  513  kubectl get ns
+  514  kubectl get configmap
+  515  kubectl get ns
+  516  kubectl get configmap
+  517  kubectl delete  configmap example-configmap
+  518  kubectl get configmap
+  519  ls
+  520  ansible-playbook web.yml 
+  521  kubectl get configmap
+  522  ls
+  523  cd ..
+  524  ls
+  525  cd Ansible-Development-Op/
+  526  ls
+  527  cd ..
+  528  rm -rf ansible-development-playbook/
+  529  cp -rf Ansible-Development-Op/ ansible-developement-playbook/
+  530  ls
+  531  cd ansible-developement-playbook/
+  532  ls
+  533  kubectl get pod -A
+  534  cd ..
+  535  ls
+  536  cd webappoperator/
+  537  ls
+  538  make undeploy
+  539  kubectl get ns
+  540  kubectl get deployment
+  541  cd ..
+  542  kubectl get pod -A
+  543  cd webappoperator/
+  544  ls
+  545  kubectl get ns
+  546  kubectl get ns all defaul
+  547  kubectl get ns all default
+  548  kubectl get ns default
+  549  cd ..
+  550  cd ansible-developement-playbook/
+  551  ls
+  552  mkdir configmap
+  553  cd configmap/
+  554  ls
+  555  cd ..
+  556  rm configmap/
+  557  rm -rf configmap/
+  558  operator-sdk init --plugins=ansible --domain example.com
+  559  operator-sdk create api --group cache --version v1alpha1 --kind Ansibledev --generate-role
+  560  ls
+  561  ansible-galaxy init configmap
+  562  ls
+  563  cd ..
+  564  ls
+  565  cd ansible-developement-playbook/
+  566  ls
+  567  history
+  568  ls
+  569  cd roles/
+  570  ls
+  571  cd ..
+  572  rm -rf *
+  573  ls
+  574  operator-sdk init --plugins=ansible --domain example.com
+  575  operator-sdk create api --group cache --version v1alpha1 --kind Ansibledev --generate-role
+  576  ls
+  577  cd roles/
+  578  ls
+  579  ansible-galaxy init configmap
+  580  ls
+  581  cd configmap/
+  582  ls
+  583  cd tasks/
+  584  ls
+  585  cd ..
+  586  cd
+  587  ls
+  588  mkdir operator-testing
+  589  cd operator-testing/
+  590  ls
+  591  operator-sdk init --plugins=ansible --domain example.com
+  592  operator-sdk create api --group cache --version v1alpha1 --kind Configmap --generate-role
+  593  pip install molecule
+  594  pip install kustomize
+  595  tree .
+  596  tree 
+  597  tree .
+  598  apt install tree
+  599  tree .
+  600  vim  roles/configmap/defaults/main.yml
+  601* make docker-build docker-push IMG=ttl.sh/yathishk-operatorte:2h
+  602  export OPERATOR_IMAGE=ttl.sh/yathishk-operatortesting:2h
+  603  molecule create
+  604  molecule destroy
+  605  molecule create
+  606  #export OPERATOR_IMAGE=ttl.sh/yathishk-operatortesting:2h
+  607  echo $OPERATOR_IMAGE
+  608  molecule list
+  609  molecule create
+  610  molecule reset
+  611  molecule create
+  612  history 
+  613  docker push ttl.sh/yathishk-operatortesting:2h
+  614  make docker-build docker-push IMG=ttl.sh/yathishk-operatortesting:2h
+  615  make docker-build docker-push IMG=ttl.sh/yathishk-operatortesting-1:2h
+  616  pip install kustomize
+  617  molecule destroy
+  618  kustomize build --load-restrictor LoadRestrictionsNone
+  619  snap install kustomize
+  620  molecule creat
+  621  molecule create
+  622  molecule converge
+  623  molecule verify
+  624  molecule destroy
+  625  history 
+  626  molecule create
+  627  molecule destroy
+  628  make docker-build docker-push IMG=ttl.sh/yathishk-operatortesting-2:2h
+  629  export OPERATOR_IMAGE=ttl.sh/yathishk-operatortesting-2:2h
+  630  molecule create
+  631  kubectl get configmap
+  632  molecule converge
+  633  kubectl get configmap
+  634  vim roles/configmap/defaults/main.yml 
+  635  cat roles/configmap/defaults/main.yml 
+  636  kubectl get configmap
+  637  kubectl get configmap -A
+  638  molecule verify
+  639  molecule destroy
+  640  make docker-build docker-push IMG=ttl.sh/yathishk-operatortesting-3:2h
+  641  export OPERATOR_IMAGE=ttl.sh/yathishk-operatortesting-3:2h
+  642  molecule create
+  643  molecule converge
+  644  kubectl get configmap
+  645  ansible-galaxy collection install -r requirements.yml --force
+  646  molecule destroy
+  647  make docker-build docker-push IMG=ttl.sh/yathishk-operatortesting-4:2h
+  648  kubectl get configmap
+  649  #make docker-build docker-push IMG=ttl.sh/yathishk-operatortesting-4:2h
+  650  export OPERATOR_IMAGE=ttl.sh/yathishk-operatortesting-4:2h
+  651  molecule create
+  652  molecule converge
+  653  molecule verify
+  654  kubectl get configmap
+  655  make deploy IMG=ttl.sh/yathishk-operatortesting-4:2h
+  656  kubectl get configmap
+  657  molecule test
+  658  kubectl get configmap
+  659  cd ..
+  660  mkdir OLM
+  661  ls
+  662  cd OLM/
+  663  kubectl get ns
+  664  cd ../operator-testing/
+  665  cd ../OLM/
+  666  kubectl create -f https://raw.githubusercontent.com/operator-framework/operator-lifecycle-manager/master/deploy/upstream/quickstart/crds.yaml
+  667  kubectl create -f https://raw.githubusercontent.com/operator-framework/operator-lifecycle-manager/master/deploy/upstream/quickstart/olm.yaml
+  668  ls
+  669  kubectl get all -n olm
+  670  kubectl get ns
+  671  kubectl get all -n operators
+  672  operator-sdk olm status
+  673  export VERSION=1.0.0
+  674  export IMG=ttl.sh/yathishk-configmap-operator-test:v$VERSION 
+  675  export BUNDLE_IMG=ttl.sh/yathishk-configmap-operator-test-bundle:v$VERSION 
+  676  export CATALOG_IMG=ttl.sh/yathishk-configmap-operator-test-catalog:v$VERSION
+  677  echo $VERSION $IMG $BUNDLE_IMG $CATALOG_IMG
+  678  make docker-build docker-push
+  679  make bundle bundle-build bundle-push
+  680  ls
+  681  operator-sdk init --plugins=ansible --domain example.com
+  682  operator-sdk create api --group cache --version v1alpha1 --kind Configmap --generate-role
+  683  ls
+  684  ansible-galaxy collection install -r requirements.yml --force
+  685  ansible-playbook playbook.yml 
+  686  kubectl get configmap
+  687  make docker-build docker-push
+  688  make bundle bundle-build bundle-push
+  689  operator-sdk bundle validate $BUNDLE_IMG
+  690  operator-sdk run bundle -n operators $BUNDLE_IMG
+  691  kubectl get operators
+  692  history
+  693  kubectl get operators
+  694  kubectl get catalogsource
+  695  kubectl get subscription
+  696  kubectl get csv
+  697  kubectl get pods
+  698  kubectl get operators
+  699  kubectl describe configmap my-configmap
+  700  kubectl get operators
+  701  kubectl describe configmap my-configmap
+  702  operator-sdk olm status
+  703  history > history.txt
