@@ -1,2 +1,2 @@
 # Kubernetes-Operators
-This is a learning repository for Kubernetes-Operators
+This repository is for learning Kubernetes-Operators
